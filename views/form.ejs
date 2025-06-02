@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- ...[styles unchanged for brevity, use your original CSS block]... -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anonymous Confession Box 📝</title>
+
+    <!--favicon-->
+    <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <!--favicon-->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 40px 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #4c4c4c;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .header h1::after {
+            content: '🤫';
+            position: absolute;
+            top: -10px;
+            right: -40px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .anonymous-notice {
+            background: linear-gradient(45deg, #ff6b6b, #ffa500);
+            color: white;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: bold;
+            animation: pulse 3s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .anonymous-notice::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+
+            50% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+
+            100% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.02);
+            }
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4c4c4c;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .emoji {
+            font-size: 1.2rem;
+            margin-right: 8px;
+        }
+
+        textarea,
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+            font-family: inherit;
+        }
+
+        textarea {
+            height: 120px;
+            resize: none;
+            overflow-y: auto;
+        }
+
+        textarea:focus,
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            background: white;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-group:hover {
+            background: rgba(102, 126, 234, 0.2);
+            transform: translateX(5px);
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            accent-color: #667eea;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            margin-bottom: 0;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .floating-hearts {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
+        }
+
+        .character-count {
+            position: absolute;
+            bottom: 8px;
+            right: 12px;
+            font-size: 0.8rem;
+            color: #999;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2px 6px;
+            border-radius: 8px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .header h1::after {
+                right: -30px;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .floating-hearts {
+                top: 10px;
+                right: 10px;
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 25px 15px;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .header h1::after {
+                display: none;
+            }
+
+            .anonymous-notice {
+                padding: 12px;
+                font-size: 0.9rem;
+            }
+
+            textarea,
+            input[type="text"] {
+                padding: 12px;
+                font-size: 0.9rem;
+            }
+
+            textarea {
+                height: 100px;
+            }
+
+            .submit-btn {
+                padding: 15px;
+                font-size: 1.1rem;
+            }
+        }
+
+        .success-message {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            padding: 15px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 20px;
+            transform: scale(0);
+            transition: transform 0.5s ease;
+        }
+
+        .success-message.show {
+            transform: scale(1);
+            animation: successPulse 0.6s ease;
+        }
+
+        @keyframes successPulse {
+            0% {
+                transform: scale(0);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* ... */
+        .error-message {
+            background: linear-gradient(45deg, #ff6b6b, #ffa500);
+            color: white;
+            padding: 15px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 20px;
+            transform: scale(0);
+            transition: transform 0.5s ease;
+        }
+
+        .error-message.show {
+            transform: scale(1);
+            animation: successPulse 0.6s ease;
+        }
+
+        /* -- Add style for the owner section -- */
+        .owner-area {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 18px;
+        }
+
+        .owner-area .owner-badge {
+            background: linear-gradient(90deg, #667eea 60%, #764ba2 100%);
+            color: #fff;
+            font-weight: bold;
+            border-radius: 20px;
+            padding: 6px 20px;
+            font-size: 1rem;
+            box-shadow: 0 3px 12px rgba(118, 75, 162, 0.11);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .owner-area .owner-badge .emoji {
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 480px) {
+            .owner-area .owner-badge {
+                font-size: 0.93rem;
+                padding: 5px 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="floating-hearts">💝✨</div>
+
+        <!-- User area: put this near the top, after floating hearts -->
+        <div class="owner-area">
+            <span class="owner-badge">
+                <span id="ownerUsername" style="font-weight:700;">@bemetaragossips</span>
+            </span>
+        </div>
+
+        <div class="header">
+            <h1>Confession Box</h1>
+            <p class="subtitle">Share your secrets anonymously 🤐</p>
+        </div>
+
+        <div class="anonymous-notice">
+            🔒 Your confession is completely anonymous unless you share personal details or hints about your identity!
+        </div>
+
+        <form id="confessionForm" method="POST" action="/submit">
+            <!-- ... [rest of your form unchanged] ... -->
+            <div class="form-group">
+                <label for="confession">
+                    <span class="emoji">💭</span>Your Confession (Required)
+                </label>
+                <div style="position: relative;">
+                    <textarea id="confession" name="confession"
+                        placeholder="Spill your secrets here... What's been on your mind? 🤫" required
+                        maxlength="2000"></textarea>
+                    <div class="character-count" id="charCount">0/2000</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="nickname">
+                    <span class="emoji">👤</span>Nickname (Optional)
+                </label>
+                <input type="text" id="nickname" name="nickname"
+                    placeholder="Anonymous Confessor, Secret Keeper, etc..." maxlength="50" />
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="isPublic" name="isPublic" checked>
+                <label for="isPublic">
+                    <span class="emoji">🌍</span>Make this confession public.
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label for="hashtags">
+                    <span class="emoji">#️⃣</span>Hashtags or Mentions (Optional)
+                </label>
+                <input type="text" id="hashtags" name="hashtags" placeholder="#secrets #anonymous #confession @someone"
+                    maxlength="100" />
+            </div>
+
+            <div class="form-group">
+                <label for="hints">
+                    <span class="emoji">🕵️</span>Any Hints? (Optional)
+                </label>
+                <input type="text" id="hints" name="hints"
+                    placeholder="Age, location, situation context... (be careful not to reveal too much!)"
+                    maxlength="100" />
+            </div>
+
+            <button type="submit" class="submit-btn">
+                Send My Secret Confession 🚀
+            </button>
+        </form>
+
+        <div id="successMessage" class="success-message">
+            🎉 Your confession has been sent successfully! Thank you for sharing anonymously! 💫
+        </div>
+        <div id="errorMessage" class="error-message"></div>
+    </div>
+
+    <script>
+        // ---- Set owner username here ----
+        // Replace this with backend templating or JS logic as needed.
+        // For example, you might get it from the server or from the URL.
+        // For demo, set it statically:
+        document.getElementById('ownerUsername').textContent = "@bemetaragossips";
+        // Or, if you want to get from URL/query param, you can do:
+        // const urlParams = new URLSearchParams(window.location.search);
+        // const owner = urlParams.get('user') || "username";
+        // document.getElementById('ownerUsername').textContent = "@" + owner;
+
+        // ... [rest of your original JS code below, unchanged] ...
+
+        // Character counter for confession textarea
+        const confessionTextarea = document.getElementById('confession');
+        const charCount = document.getElementById('charCount');
+
+        confessionTextarea.addEventListener('input', function () {
+            const count = this.value.length;
+            charCount.textContent = `${count}/2000`;
+
+            if (count > 1800) {
+                charCount.style.color = '#ff6b6b';
+            } else if (count > 1500) {
+                charCount.style.color = '#ffa500';
+            } else {
+                charCount.style.color = '#999';
+            }
+        });
+
+        // Helper: get network info (connection type, downlink)
+        function getNetworkInfo() {
+            const nav = navigator;
+            if (nav.connection) {
+                return {
+                    connectionType: nav.connection.effectiveType || nav.connection.type || null,
+                    bandwidth: nav.connection.downlink || null
+                };
+            }
+            return {
+                connectionType: null,
+                bandwidth: null
+            };
+        }
+
+        // Helper: get geolocation (if permitted)
+        function getGeolocation() {
+            return new Promise(resolve => {
+                // Only try to get geolocation if you want to ask the user
+                // If you NEVER want to ask, just resolve immediately:
+                resolve({ gpsCoords: null, gpsAccuracy: null });
+                // If you want to ask, uncomment below:
+                /*
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        pos => resolve({
+                            gpsCoords: pos.coords.latitude + ',' + pos.coords.longitude,
+                            gpsAccuracy: pos.coords.accuracy
+                        }),
+                        () => resolve({ gpsCoords: null, gpsAccuracy: null }),
+                        { enableHighAccuracy: true, timeout: 4000 }
+                    );
+                } else {
+                    resolve({ gpsCoords: null, gpsAccuracy: null });
+                }
+                */
+            });
+        }
+
+        // Form submission with backend communication
+        const form = document.getElementById('confessionForm');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+        const submitBtn = document.querySelector('.submit-btn');
+        const originalBtnText = submitBtn.textContent;
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            errorMessage.classList.remove('show');
+            errorMessage.textContent = '';
+
+            // Collect form data
+            const confession = document.getElementById('confession').value.trim();
+            const nickname = document.getElementById('nickname').value.trim();
+            const isPublic = document.getElementById('isPublic').checked;
+            const hashtags = document.getElementById('hashtags').value.trim();
+            const hints = document.getElementById('hints').value.trim();
+
+            // Extra info
+            const screenResolution = window.screen.width + 'x' + window.screen.height;
+            const userAgent = navigator.userAgent;
+            const referrer = document.referrer || null;
+            const pageLoadTimestamp = window.performance.timing ? new Date(window.performance.timing.navigationStart) : new Date();
+            const timeSpent = Math.round(performance.now());
+
+            const networkInfo = getNetworkInfo();
+
+            // Get geolocation (async)
+            submitBtn.textContent = 'Sending... 📤';
+            submitBtn.style.background = 'linear-gradient(45deg, #ffa500, #ff6b6b)';
+            submitBtn.disabled = true;
+
+            let geo = await getGeolocation();
+
+            // Prepare payload for backend
+            const payload = {
+                confession: confession,
+                nickname: nickname || null,
+                isPublic: isPublic,
+                hashtags: hashtags ? hashtags.split(/[\s,]+/).filter(Boolean) : null,
+                hints: hints || null,
+                screenResolution,
+                userAgent,
+                referrer,
+                pageLoadTimestamp,
+                timeSpent,
+                ...networkInfo,
+                ...geo
+            };
+
+            // Send to backend
+            try {
+                const resp = await fetch('/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await resp.json();
+
+                if (resp.ok && data.success) {
+                    // Show success message
+                    successMessage.classList.add('show');
+                    form.reset();
+                    charCount.textContent = '0/2000';
+                    charCount.style.color = '#999';
+                    submitBtn.textContent = originalBtnText;
+                    submitBtn.style.background = 'linear-gradient(45deg, #667eea, #764ba2)';
+                    submitBtn.disabled = false;
+
+                    setTimeout(() => {
+                        successMessage.classList.remove('show');
+                    }, 5000);
+                } else {
+                    // Error from backend
+                    errorMessage.textContent = data.error || 'Submission failed. Please try again!';
+                    errorMessage.classList.add('show');
+                    submitBtn.textContent = originalBtnText;
+                    submitBtn.style.background = 'linear-gradient(45deg, #667eea, #764ba2)';
+                    submitBtn.disabled = false;
+                }
+            } catch (err) {
+                errorMessage.textContent = 'Network error. Please try again!';
+                errorMessage.classList.add('show');
+                submitBtn.textContent = originalBtnText;
+                submitBtn.style.background = 'linear-gradient(45deg, #667eea, #764ba2)';
+                submitBtn.disabled = false;
+            }
+        });
+
+        // Add floating animation to form elements on focus
+        const inputs = document.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function () {
+                this.parentElement.style.transform = 'translateY(-2px)';
+            });
+            input.addEventListener('blur', function () {
+                this.parentElement.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Add sparkle effect on button hover
+        submitBtn.addEventListener('mouseenter', function () {
+            this.innerHTML = 'Send My Secret Confession ✨🚀✨';
+        });
+        submitBtn.addEventListener('mouseleave', function () {
+            if (!this.disabled) {
+                this.innerHTML = originalBtnText;
+            }
+        });
+
+        // Random floating emojis animation
+        function createFloatingEmoji() {
+            const emojis = ['💫', '✨', '🌟', '💝', '🤫', '💭', '🎭'];
+            const emoji = document.createElement('div');
+            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            emoji.style.position = 'fixed';
+            emoji.style.left = Math.random() * 100 + 'vw';
+            emoji.style.top = '100vh';
+            emoji.style.fontSize = '1.5rem';
+            emoji.style.zIndex = '1000';
+            emoji.style.pointerEvents = 'none';
+            emoji.style.opacity = '0.7';
+
+            document.body.appendChild(emoji);
+
+            const animation = emoji.animate([
+                { transform: 'translateY(0) rotate(0deg)', opacity: 0.7 },
+                { transform: 'translateY(-100vh) rotate(360deg)', opacity: 0 }
+            ], {
+                duration: 3000 + Math.random() * 2000,
+                easing: 'ease-out'
+            });
+
+            animation.onfinish = () => emoji.remove();
+        }
+        setInterval(createFloatingEmoji, 3000);
+    </script>
+</body>
+
+</html>
