@@ -59,7 +59,7 @@ const ConfessionSchema = new mongoose.Schema({
 const Confession = mongoose.model('confessions', ConfessionSchema);
 
 // ========== MongoDB Connection ==========
-mongoose.connect('mongodb://localhost:27017/confess');
+mongoose.connect('mongodb+srv://confessAdmin:Uva192$$@cluster0.dcxwyqz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0').then(() => console.log('MongoDB connected')).catch((err) => console.error(err));;
 
 // ========== Serve form (ejs view assumed as 'form.ejs') ==========
 app.get('/', (req, res) => {
