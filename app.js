@@ -7,6 +7,7 @@ const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch
 const PORT = process.env.PORT || 5000;
 const path = require('path');
 require('dotenv').config();
+const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/confess';
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -59,7 +60,7 @@ const ConfessionSchema = new mongoose.Schema({
 const Confession = mongoose.model('confessions', ConfessionSchema);
 
 // ========== MongoDB Connection ==========
-mongoose.connect('mongodb+srv://confessAdmin:Uva192$$@cluster0.dcxwyqz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0').then(() => console.log('MongoDB connected')).catch((err) => console.error(err));;
+mongoose.connect(mongoURI).then(() => console.log('MongoDB connected')).catch((err) => console.error(err));;
 
 // ========== Serve form (ejs view assumed as 'form.ejs') ==========
 app.get('/', (req, res) => {
