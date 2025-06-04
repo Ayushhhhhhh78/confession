@@ -446,12 +446,249 @@
                 padding: 5px 13px;
             }
         }
+
+        /* --- VIP BUTTON AND POPUP STYLES --- */
+        .vip-btn {
+            position: absolute;
+            top: 22px;
+            right: 22px;
+            z-index: 1020;
+            background: linear-gradient(45deg, #764ba2 40%, #667eea 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            box-shadow: 0 4px 18px rgba(102, 126, 234, 0.14);
+            font-size: 1.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.25s, box-shadow 0.25s;
+            outline: none;
+            animation: vipBtnPulse 2.5s infinite;
+        }
+
+        .vip-btn:hover {
+            transform: scale(1.08) rotate(-7deg);
+            box-shadow: 0 8px 28px rgba(118, 75, 162, 0.22);
+        }
+
+        @keyframes vipBtnPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 4px 18px rgba(102, 126, 234, 0.14);
+            }
+
+            50% {
+                box-shadow: 0 0 30px 8px #764ba288;
+            }
+        }
+
+        .vip-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(102, 126, 234, 0.13);
+            z-index: 1100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeInOverlay 0.4s;
+        }
+
+        @keyframes fadeInOverlay {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .vip-popup {
+            position: relative;
+            background: rgba(255, 255, 255, 0.60);
+            backdrop-filter: blur(12px);
+            border-radius: 25px;
+            box-shadow: 0 8px 38px 8px rgba(102, 126, 234, 0.13), 0 2px 8px #764ba226;
+            padding: 36px 36px 30px 36px;
+            min-width: 310px;
+            max-width: 95vw;
+            min-height: 180px;
+            animation: vipPopupScaleIn 0.6s cubic-bezier(.42, 1.51, .39, .99);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @keyframes vipPopupScaleIn {
+            from {
+                transform: scale(0.5) translateY(-60px);
+                opacity: 0;
+            }
+
+            60% {
+                transform: scale(1.08) translateY(6px);
+                opacity: 1;
+            }
+
+            to {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .vip-popup-title {
+            font-size: 1.45rem;
+            color: #4c4c4c;
+            font-weight: bold;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .vip-popup-close {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: #764ba2;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 20;
+            transition: transform 0.15s;
+        }
+
+        .vip-popup-close:hover {
+            color: #ff6b6b;
+            transform: scale(1.14);
+        }
+
+        .vip-profiles {
+            margin-top: 18px;
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .vip-profile-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.22s, box-shadow 0.22s;
+            padding: 5px 8px 0 8px;
+        }
+
+        .vip-profile-card:hover {
+            transform: translateY(-6px) scale(1.07) rotate(-2deg);
+        }
+
+        .vip-pfp {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3.5px solid #667eea;
+            box-shadow: 0 2px 12px #764ba233;
+            background: #fff;
+            transition: border 0.22s, box-shadow 0.22s;
+            margin-bottom: 6px;
+            animation: pfpPop 0.7s;
+        }
+
+        @keyframes pfpPop {
+            0% {
+                transform: scale(0.7);
+                opacity: 0;
+            }
+
+            65% {
+                transform: scale(1.16);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .vip-username {
+            font-size: 1.0rem;
+            color: #764ba2;
+            font-weight: 700;
+            margin-top: 0;
+            text-align: center;
+            word-break: break-all;
+        }
+
+        .vip-instagram {
+            color: #E4405F;
+            font-size: 1rem;
+            margin-top: 0;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .vip-profile-card:hover .vip-pfp {
+            border-color: #ff6b6b;
+            box-shadow: 0 3px 18px #ff6b6b44;
+        }
+
+        @media (max-width: 480px) {
+            .vip-popup {
+                padding: 18px 4vw 18px 4vw;
+            }
+
+            .vip-profiles {
+                gap: 13px;
+            }
+
+            .vip-pfp {
+                width: 54px;
+                height: 54px;
+            }
+
+            .vip-username {
+                font-size: 0.93rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .vip-btn {
+                top: 10px;
+                right: 10px;
+                width: 38px;
+                height: 38px;
+                font-size: 1.2rem;
+            }
+        }
+
+        .vip-instagram {
+            margin-top: 4px;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
         <div class="floating-hearts">💝✨</div>
+
+        <!-- VIP Button (top right corner, above main content) -->
+        <!-- <button class="vip-btn" id="vipBtn" title="View VIP Members" aria-label="VIP Members"><span>🌟</span></button> -->
 
         <!-- User area: put this near the top, after floating hearts -->
         <div class="owner-area">
@@ -526,7 +763,101 @@
         <div id="errorMessage" class="error-message"></div>
     </div>
 
+    <!-- VIP Popup Overlay (hidden by default) -->
+    <!-- <div id="vipPopupOverlay" class="vip-popup-overlay" style="display:none;">
+        <div class="vip-popup">
+            <button class="vip-popup-close" id="vipPopupClose" aria-label="Close VIP">&times;</button>
+            <div class="vip-popup-title"><span style="padding-bottom: 7px;">💎</span>Our VIP Members</div>
+            <div class="vip-profiles">
+                <div class="vip-profile-card" onclick="window.open('https://www.instagram.com/dinesh_._10/','_blank')">
+                    <img class="vip-pfp" src="/vips/487671753_841636258155566_2198978463290241734_n.jpg" alt="vip1" />
+                    <div class="vip-username">@dinesh_._10</div>
+                    <div class="vip-instagram"><img
+                            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" width="16"
+                            style="vertical-align:middle;">Instagram</div>
+                </div>
+                <div class="vip-profile-card" onclick="window.open('https://www.instagram.com/mr._rahul_89/','_blank')">
+                    <img class="vip-pfp" src="/vips/481579185_1335633984308137_299757119878773361_n.jpg" alt="vip2" />
+                    <div class="vip-username">@mr._rahul_89</div>
+                    <div class="vip-instagram"><img
+                            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" width="16"
+                            style="vertical-align:middle;">Instagram</div>
+                </div>
+                <div class="vip-profile-card" onclick="window.open('https://www.instagram.com/kanhapandey_/','_blank')">
+                    <img class="vip-pfp" src="/vips/358800043_295468106204233_1999038136957344485_n.jpg" alt="vip3" />
+                    <div class="vip-username">@kanhapandey_</div>
+                    <div class="vip-instagram"><img
+                            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" width="16"
+                            style="vertical-align:middle;">Instagram</div>
+                </div>
+                <div class="vip-profile-card"
+                    onclick="window.open('https://www.instagram.com/nayantripathi52','_blank')">
+                    <img class="vip-pfp" src="/vips/504087183_17848687092479645_219044768013653487_n.jpg" alt="vip4" />
+                    <div class="vip-username">@nayantripathi52</div>
+                    <div class="vip-instagram"><img
+                            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" width="16"
+                            style="vertical-align:middle;">Instagram</div>
+                </div>
+                <div class="vip-profile-card" onclick="window.open('https://instagram.com/vip5_handle','_blank')">
+                    <img class="vip-pfp" src="https://photosnow.net/wp-content/uploads/2024/04/no-dp-mood-off_9.jpg" alt="vip5" />
+                    <div class="vip-username">@vip5_handle</div>
+                    <div class="vip-instagram"><img
+                            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" width="16"
+                            style="vertical-align:middle;">Instagram</div>
+                </div>
+                <div class="vip-profile-card" onclick="window.open('https://instagram.com/vip6_handle','_blank')">
+                    <img class="vip-pfp" src="https://photosnow.net/wp-content/uploads/2024/04/no-dp-mood-off_9.jpg" alt="vip6" />
+                    <div class="vip-username">@vip6_handle</div>
+                    <div class="vip-instagram"><img
+                            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" width="16"
+                            style="vertical-align:middle;">Instagram</div>
+                </div>
+            </div>
+        </div>
+    </div>  -->
+
     <script>
+        // VIP Members Popup Logic
+        // const vipBtn = document.getElementById('vipBtn');
+        // const vipPopupOverlay = document.getElementById('vipPopupOverlay');
+        // const vipPopupClose = document.getElementById('vipPopupClose');
+
+        // function showVipPopup() {
+        //     vipPopupOverlay.style.display = 'flex';
+        //     setTimeout(() => vipPopupOverlay.style.opacity = 1, 10);
+        //     setTimeout(() => vipPopupClose && vipPopupClose.focus(), 200);
+        // }
+        // function hideVipPopup() {
+        //     vipPopupOverlay.style.opacity = 0;
+        //     setTimeout(() => vipPopupOverlay.style.display = 'none', 300);
+        // }
+
+        // // Open on load
+        // window.addEventListener('DOMContentLoaded', () => {
+        //     showVipPopup();
+        // });
+
+        // // Button open
+        // vipBtn.addEventListener('click', showVipPopup);
+
+        // // Button close
+        // vipPopupClose.addEventListener('click', hideVipPopup);
+
+        // // Close on overlay click (not popup)
+        // vipPopupOverlay.addEventListener('click', function (e) {
+        //     if (e.target === vipPopupOverlay) {
+        //         hideVipPopup();
+        //     }
+        // });
+
+        // // ESC key to close
+        // document.addEventListener('keydown', function (e) {
+        //     if (e.key === "Escape" && vipPopupOverlay.style.display !== 'none') {
+        //         hideVipPopup();
+        //     }
+        // });
+
+
         // ---- Set owner username here ----
         // Replace this with backend templating or JS logic as needed.
         // For example, you might get it from the server or from the URL.

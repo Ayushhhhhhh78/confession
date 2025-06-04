@@ -6,6 +6,7 @@ const useragent = require('express-useragent');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const PORT = process.env.PORT || 5000;
 const path = require('path');
+const nodemailer = require('nodemailer');
 require('dotenv').config();
 const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/confess';
 
@@ -15,6 +16,15 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(useragent.express());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Email Transporter
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL,
+        pass: process.env.EMAIL_PASS
+    }
+});
 
 // ========== Mongoose Model ==========
 const ConfessionSchema = new mongoose.Schema({
@@ -176,6 +186,12 @@ app.post('/submit', async (req, res) => {
     });
 
     try {
+        transporter.sendMail({
+            from: process.env.EMAIL,
+            to: process.env.SEND_MAIL,
+            subject: 'New Confession',
+            text: `${confessionDoc}`
+        });
         await confessionDoc.save();
         res.json({ success: true, message: 'Confession submitted successfully!' });
     } catch (error) {
