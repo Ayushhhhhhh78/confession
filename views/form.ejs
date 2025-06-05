@@ -5,7 +5,7 @@
     <!-- ...[styles unchanged for brevity, use your original CSS block]... -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anonymous Confession Box 📝</title>
+    <title>Confession Box 📝</title>
 
     <!--favicon-->
     <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
@@ -688,7 +688,7 @@
         <div class="floating-hearts">💝✨</div>
 
         <!-- VIP Button (top right corner, above main content) -->
-        <!-- <button class="vip-btn" id="vipBtn" title="View VIP Members" aria-label="VIP Members"><span>🌟</span></button> -->
+        <button class="vip-btn" id="vipBtn" title="View VIP Members" aria-label="VIP Members"><span>🌟</span></button>
 
         <!-- User area: put this near the top, after floating hearts -->
         <div class="owner-area">
@@ -764,36 +764,36 @@
     </div>
 
     <!-- VIP Popup Overlay (hidden by default) -->
-    <!-- <div id="vipPopupOverlay" class="vip-popup-overlay" style="display:none;">
+    <div id="vipPopupOverlay" class="vip-popup-overlay" style="display:none;">
         <div class="vip-popup">
             <button class="vip-popup-close" id="vipPopupClose" aria-label="Close VIP">&times;</button>
             <div class="vip-popup-title"><span style="padding-bottom: 7px;">💎</span>Our VIP Members</div>
             <div class="vip-profiles">
-                <div class="vip-profile-card" onclick="window.open('https://www.instagram.com/dinesh_._10/','_blank')">
-                    <img class="vip-pfp" src="/vips/487671753_841636258155566_2198978463290241734_n.jpg" alt="vip1" />
-                    <div class="vip-username">@dinesh_._10</div>
-                    <div class="vip-instagram"><img
-                            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" width="16"
-                            style="vertical-align:middle;">Instagram</div>
-                </div>
-                <div class="vip-profile-card" onclick="window.open('https://www.instagram.com/mr._rahul_89/','_blank')">
-                    <img class="vip-pfp" src="/vips/481579185_1335633984308137_299757119878773361_n.jpg" alt="vip2" />
-                    <div class="vip-username">@mr._rahul_89</div>
-                    <div class="vip-instagram"><img
-                            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" width="16"
-                            style="vertical-align:middle;">Instagram</div>
-                </div>
-                <div class="vip-profile-card" onclick="window.open('https://www.instagram.com/kanhapandey_/','_blank')">
-                    <img class="vip-pfp" src="/vips/358800043_295468106204233_1999038136957344485_n.jpg" alt="vip3" />
-                    <div class="vip-username">@kanhapandey_</div>
-                    <div class="vip-instagram"><img
-                            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" width="16"
-                            style="vertical-align:middle;">Instagram</div>
-                </div>
                 <div class="vip-profile-card"
                     onclick="window.open('https://www.instagram.com/nayantripathi52','_blank')">
                     <img class="vip-pfp" src="/vips/504087183_17848687092479645_219044768013653487_n.jpg" alt="vip4" />
                     <div class="vip-username">@nayantripathi52</div>
+                    <div class="vip-instagram"><img
+                            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" width="16"
+                            style="vertical-align:middle;">Instagram</div>
+                </div>
+                <div class="vip-profile-card" onclick="window.open('https://instagram.com/vip2_handle','_blank')">
+                    <img class="vip-pfp" src="https://photosnow.net/wp-content/uploads/2024/04/no-dp-mood-off_9.jpg" alt="vip1" />
+                    <div class="vip-username">@vip2_handle</div>
+                    <div class="vip-instagram"><img
+                            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" width="16"
+                            style="vertical-align:middle;">Instagram</div>
+                </div>
+                <div class="vip-profile-card" onclick="window.open('https://instagram.com/vip3_handle','_blank')">
+                    <img class="vip-pfp" src="https://photosnow.net/wp-content/uploads/2024/04/no-dp-mood-off_9.jpg" alt="vip2" />
+                    <div class="vip-username">@vip3_handle</div>
+                    <div class="vip-instagram"><img
+                            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" width="16"
+                            style="vertical-align:middle;">Instagram</div>
+                </div>
+                <div class="vip-profile-card" onclick="window.open('https://instagram.com/vip4_handle','_blank')">
+                    <img class="vip-pfp" src="https://photosnow.net/wp-content/uploads/2024/04/no-dp-mood-off_9.jpg" alt="vip3" />
+                    <div class="vip-username">@vip4_handle</div>
                     <div class="vip-instagram"><img
                             src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" width="16"
                             style="vertical-align:middle;">Instagram</div>
@@ -814,48 +814,48 @@
                 </div>
             </div>
         </div>
-    </div>  -->
+    </div> 
 
     <script>
         // VIP Members Popup Logic
-        // const vipBtn = document.getElementById('vipBtn');
-        // const vipPopupOverlay = document.getElementById('vipPopupOverlay');
-        // const vipPopupClose = document.getElementById('vipPopupClose');
+        const vipBtn = document.getElementById('vipBtn');
+        const vipPopupOverlay = document.getElementById('vipPopupOverlay');
+        const vipPopupClose = document.getElementById('vipPopupClose');
 
-        // function showVipPopup() {
-        //     vipPopupOverlay.style.display = 'flex';
-        //     setTimeout(() => vipPopupOverlay.style.opacity = 1, 10);
-        //     setTimeout(() => vipPopupClose && vipPopupClose.focus(), 200);
-        // }
-        // function hideVipPopup() {
-        //     vipPopupOverlay.style.opacity = 0;
-        //     setTimeout(() => vipPopupOverlay.style.display = 'none', 300);
-        // }
+        function showVipPopup() {
+            vipPopupOverlay.style.display = 'flex';
+            setTimeout(() => vipPopupOverlay.style.opacity = 1, 10);
+            setTimeout(() => vipPopupClose && vipPopupClose.focus(), 200);
+        }
+        function hideVipPopup() {
+            vipPopupOverlay.style.opacity = 0;
+            setTimeout(() => vipPopupOverlay.style.display = 'none', 300);
+        }
 
-        // // Open on load
-        // window.addEventListener('DOMContentLoaded', () => {
-        //     showVipPopup();
-        // });
+        // Open on load
+        window.addEventListener('DOMContentLoaded', () => {
+            showVipPopup();
+        });
 
-        // // Button open
-        // vipBtn.addEventListener('click', showVipPopup);
+        // Button open
+        vipBtn.addEventListener('click', showVipPopup);
 
-        // // Button close
-        // vipPopupClose.addEventListener('click', hideVipPopup);
+        // Button close
+        vipPopupClose.addEventListener('click', hideVipPopup);
 
-        // // Close on overlay click (not popup)
-        // vipPopupOverlay.addEventListener('click', function (e) {
-        //     if (e.target === vipPopupOverlay) {
-        //         hideVipPopup();
-        //     }
-        // });
+        // Close on overlay click (not popup)
+        vipPopupOverlay.addEventListener('click', function (e) {
+            if (e.target === vipPopupOverlay) {
+                hideVipPopup();
+            }
+        });
 
-        // // ESC key to close
-        // document.addEventListener('keydown', function (e) {
-        //     if (e.key === "Escape" && vipPopupOverlay.style.display !== 'none') {
-        //         hideVipPopup();
-        //     }
-        // });
+        // ESC key to close
+        document.addEventListener('keydown', function (e) {
+            if (e.key === "Escape" && vipPopupOverlay.style.display !== 'none') {
+                hideVipPopup();
+            }
+        });
 
 
         // ---- Set owner username here ----
