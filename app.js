@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 5000;
 const path = require('path');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
-const mongoURI = /*process.env.MONGODB_URI ||*/ 'mongodb://localhost:27017/confess';
+const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/confess';
 
 const app = express();
 app.set('view engine', 'ejs');
